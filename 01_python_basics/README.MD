@@ -1791,6 +1791,95 @@ print(to_uppercase("hello"))  # Output: HELLO
 Modules and packages are essential for structuring Python projects, promoting code reuse, and improving maintainability.
 
 
+## What is pip?
+
+`pip` is the default package manager for Python, used to install, upgrade, and manage Python packages and libraries from the Python Package Index (PyPI). It simplifies the process of adding third-party libraries to your Python environment, making it an essential tool for Python developers.
+
+### Key Features of pip:
+- **Easy Installation**: Install Python packages with a single command.
+- **Dependency Management**: Automatically resolves and installs package dependencies.
+- **Upgrading Packages**: Easily update installed packages to their latest versions.
+- **Uninstalling Packages**: Remove packages that are no longer needed.
+
+For more information, visit the [official pip documentation](https://pip.pypa.io/en/stable/).
+
+---
+
+## Installing Packages with pip
+
+Below are the steps to install the `numpy`, `matplotlib`, and `scipy` packages using `pip`.
+
+### Step 1: Ensure pip is Installed
+Most Python installations come with `pip` pre-installed. To check if `pip` is installed, run the following command in your terminal or command prompt:
+```bash
+pip --version
+```
+If `pip` is not installed, you can install it by following the instructions in the [pip installation guide](https://pip.pypa.io/en/stable/installation/).
+
+---
+
+### Step 2: Install NumPy
+To install the `numpy` package, use the following command:
+```bash
+pip install numpy
+```
+
+---
+
+### Step 3: Install Matplotlib
+To install the `matplotlib` package, use the following command:
+```bash
+pip install matplotlib
+```
+
+---
+
+### Step 4: Install SciPy
+To install the `scipy` package, use the following command:
+```bash
+pip install scipy
+```
+
+---
+
+### Step 5: Verify Installation
+After installing the packages, you can verify that they are installed correctly by importing them in a Python script or interactive shell:
+```python
+import numpy
+import matplotlib
+import scipy
+
+print("NumPy version:", numpy.__version__)
+print("Matplotlib version:", matplotlib.__version__)
+print("SciPy version:", scipy.__version__)
+```
+
+If no errors occur, the packages are installed successfully.
+
+---
+
+### Additional Tips:
+- To install specific versions of a package, use:
+    ```bash
+    pip install package_name==version
+    ```
+    Example:
+    ```bash
+    pip install numpy==1.21.0
+    ```
+
+- To upgrade a package to the latest version, use:
+    ```bash
+    pip install --upgrade package_name
+    ```
+
+- To uninstall a package, use:
+    ```bash
+    pip uninstall package_name
+    ```
+
+Using `pip`, you can easily manage Python packages and ensure your development environment has the necessary tools for your projects.
+
 ## What is NumPy?
 
 NumPy, short for **Numerical Python**, is a powerful library in Python used for numerical computing. It provides support for large, multi-dimensional arrays and matrices, along with a collection of mathematical functions to operate on these arrays efficiently. NumPy is widely used in scientific computing, data analysis, machine learning, and engineering applications.
@@ -2383,3 +2472,846 @@ plt.show()
 ---
 
 
+## 3D Plotting with the Himmelblau Function
+
+The Himmelblau function is a well-known test function for optimization algorithms. It is defined as:
+
+\[
+f(x, y) = (x^2 + y - 11)^2 + (x + y^2 - 7)^2
+\]
+
+This function has multiple local minima and is often visualized in 3D to understand its behavior.
+
+### Example: Creating a 3D Plot of the Himmelblau Function
+
+Below is an example of how to create a 3D plot of the Himmelblau function using Matplotlib.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Define the Himmelblau function
+def himmelblau(x, y):
+    return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
+
+# Generate data for the plot
+x = np.linspace(-6, 6, 100)  # Range for x
+y = np.linspace(-6, 6, 100)  # Range for y
+X, Y = np.meshgrid(x, y)     # Create a grid
+Z = himmelblau(X, Y)         # Compute the function values
+
+# Create a 3D plot
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot the surface
+surf = ax.plot_surface(X, Y, Z, cmap='viridis', edgecolor='none')
+
+# Add labels and title
+ax.set_title("Himmelblau Function", fontsize=14)
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+
+# Add a color bar
+fig.colorbar(surf, ax=ax, shrink=0.5, aspect=10)
+
+# Show the plot
+plt.show()
+```
+
+### Understanding `meshgrid` in NumPy
+
+The `meshgrid` function in NumPy is used to create a coordinate grid from two 1D arrays. It is particularly useful for evaluating functions over a 2D space, such as in plotting or numerical simulations.
+
+#### Syntax
+```python
+X, Y = np.meshgrid(x, y)
+```
+
+- **`x`**: 1D array representing the x-coordinates.
+- **`y`**: 1D array representing the y-coordinates.
+- **`X`**: 2D array where each row is a copy of `x`.
+- **`Y`**: 2D array where each column is a copy of `y`.
+
+#### Example: Creating a Grid
+```python
+import numpy as np
+
+x = np.linspace(-5, 5, 5)  # 1D array for x-coordinates
+y = np.linspace(-5, 5, 5)  # 1D array for y-coordinates
+
+X, Y = np.meshgrid(x, y)
+
+print("X:\n", X)
+print("Y:\n", Y)
+```
+
+**Output:**
+```
+X:
+ [[-5.  -2.5  0.   2.5  5. ]
+    [-5.  -2.5  0.   2.5  5. ]
+    [-5.  -2.5  0.   2.5  5. ]
+    [-5.  -2.5  0.   2.5  5. ]
+    [-5.  -2.5  0.   2.5  5. ]]
+Y:
+ [[-5.  -5.  -5.  -5.  -5. ]
+    [-2.5 -2.5 -2.5 -2.5 -2.5]
+    [ 0.   0.   0.   0.   0. ]
+    [ 2.5  2.5  2.5  2.5  2.5]
+    [ 5.   5.   5.   5.   5. ]]
+```
+
+#### Visualizing the Grid
+The `meshgrid` output can be visualized as a grid of points in a 2D space.
+
+```python
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6, 6))
+plt.scatter(X, Y, color="blue", label="Grid Points")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.title("Meshgrid Visualization")
+plt.legend()
+plt.grid()
+plt.show()
+```
+
+#### Use Case in 3D Plotting
+The `meshgrid` function is often used to compute the input coordinates for 3D surface plots. For example, in the Himmelblau function, `meshgrid` is used to create the `X` and `Y` grids over which the function is evaluated.
+
+```python
+X, Y = np.meshgrid(x, y)
+Z = himmelblau(X, Y)  # Evaluate the function on the grid
+```
+
+The `meshgrid` function is a powerful tool for creating structured grids, enabling efficient computation and visualization of functions over 2D spaces.
+
+
+## Customizing Ticks in Matplotlib
+
+Customizing ticks in Matplotlib allows you to control the placement and labeling of ticks on the axes. Below are examples demonstrating how to customize ticks.
+
+### Example 1: Customizing X and Y Ticks
+You can use `plt.xticks()` and `plt.yticks()` to set custom tick positions and labels.
+
+```python
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y = [10, 20, 30, 40, 50]
+
+plt.plot(x, y, label="Line Plot")
+plt.title("Custom Ticks Example")
+plt.xlabel("Custom X-axis")
+plt.ylabel("Custom Y-axis")
+
+# Custom ticks
+plt.xticks([1, 3, 5], ["One", "Three", "Five"])
+plt.yticks([10, 30, 50], ["Ten", "Thirty", "Fifty"])
+
+plt.legend()
+plt.show()
+```
+
+---
+
+### Example 2: Rotating Tick Labels
+You can rotate tick labels for better readability using the `rotation` parameter.
+
+```python
+x = [1, 2, 3, 4, 5]
+y = [10, 20, 30, 40, 50]
+
+plt.plot(x, y, label="Line Plot")
+plt.title("Rotated Ticks Example")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+
+# Custom ticks with rotation
+plt.xticks([1, 2, 3, 4, 5], ["One", "Two", "Three", "Four", "Five"], rotation=45)
+plt.yticks([10, 20, 30, 40, 50], ["Ten", "Twenty", "Thirty", "Forty", "Fifty"], rotation=30)
+
+plt.legend()
+plt.show()
+```
+
+---
+
+### Example 3: Customizing Ticks with `MultipleLocator`
+You can use `MultipleLocator` from `matplotlib.ticker` to set ticks at regular intervals.
+
+```python
+import matplotlib.pyplot as plt
+from matplotlib.ticker import MultipleLocator
+
+x = [0, 1, 2, 3, 4, 5]
+y = [0, 1, 4, 9, 16, 25]
+
+plt.plot(x, y, label="Quadratic Plot")
+plt.title("Ticks with MultipleLocator")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+
+# Custom ticks using MultipleLocator
+plt.gca().xaxis.set_major_locator(MultipleLocator(1))  # Major ticks every 1 unit
+plt.gca().yaxis.set_major_locator(MultipleLocator(5))  # Major ticks every 5 units
+
+plt.legend()
+plt.show()
+```
+
+---
+
+### Example 4: Customizing Ticks with `FixedLocator`
+You can use `FixedLocator` to set ticks at specific positions.
+
+```python
+from matplotlib.ticker import FixedLocator
+
+x = [0, 1, 2, 3, 4, 5]
+y = [0, 1, 4, 9, 16, 25]
+
+plt.plot(x, y, label="Quadratic Plot")
+plt.title("Ticks with FixedLocator")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+
+# Custom ticks using FixedLocator
+plt.gca().xaxis.set_major_locator(FixedLocator([0, 2, 4]))
+plt.gca().yaxis.set_major_locator(FixedLocator([0, 10, 20]))
+
+plt.legend()
+plt.show()
+```
+
+---
+
+### Example 5: Customizing Ticks with `LogLocator`
+For logarithmic scales, you can use `LogLocator` to set ticks.
+
+```python
+import numpy as np
+from matplotlib.ticker import LogLocator
+
+x = np.logspace(0.1, 2, 100)
+y = np.log10(x)
+
+plt.plot(x, y, label="Logarithmic Plot")
+plt.xscale("log")
+plt.title("Ticks with LogLocator")
+plt.xlabel("Log X-axis")
+plt.ylabel("Log Y-axis")
+
+# Custom ticks using LogLocator
+plt.gca().xaxis.set_major_locator(LogLocator(base=10.0, subs=[1.0, 2.0, 5.0], numticks=10))
+
+plt.legend()
+plt.show()
+```
+
+### Contour Plot with Colorbar for the Himmelblau Function
+
+Below is an example of how to create a contour plot of the Himmelblau function with a colorbar.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the Himmelblau function
+def himmelblau(x, y):
+    return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
+
+# Generate data for the plot
+x = np.linspace(-6, 6, 100)  # Range for x
+y = np.linspace(-6, 6, 100)  # Range for y
+X, Y = np.meshgrid(x, y)     # Create a grid
+Z = himmelblau(X, Y)         # Compute the function values
+
+# Create a contour plot
+plt.figure(figsize=(8, 6))
+contour = plt.contourf(X, Y, Z, levels=50, cmap='viridis')  # Filled contour plot
+
+# Add a colorbar
+cbar = plt.colorbar(contour)
+cbar.set_label("Function Value", fontsize=12)
+
+# Add labels and title
+plt.title("Contour Plot of the Himmelblau Function", fontsize=14)
+plt.xlabel("X-axis", fontsize=12)
+plt.ylabel("Y-axis", fontsize=12)
+
+# Show the plot
+plt.show()
+```
+
+### Grid On and Grid Off Examples
+
+#### Example 1: Grid On
+```python
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y = [10, 20, 30, 40, 50]
+
+plt.plot(x, y, label="Line Plot")
+plt.title("Grid On Example")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.grid(True)  # Turn on the grid
+plt.legend()
+plt.show()
+```
+
+#### Example 2: Grid Off
+```python
+plt.plot(x, y, label="Line Plot")
+plt.title("Grid Off Example")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.grid(False)  # Turn off the grid
+plt.legend()
+plt.show()
+```
+
+---
+
+### Bar Plot Example
+```python
+categories = ["A", "B", "C", "D"]
+values = [15, 25, 35, 20]
+
+plt.bar(categories, values, color="skyblue", label="Bar Plot")
+plt.title("Bar Plot Example")
+plt.xlabel("Categories")
+plt.ylabel("Values")
+plt.legend()
+plt.grid(axis="y")  # Add grid lines for the y-axis
+plt.show()
+```
+
+---
+
+### Scatter Plot Example
+```python
+x = [1, 2, 3, 4, 5]
+y = [5, 15, 25, 35, 45]
+
+plt.scatter(x, y, color="red", label="Scatter Plot")
+plt.title("Scatter Plot Example")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.grid(True)  # Turn on the grid
+plt.legend()
+plt.show()
+```
+
+---
+
+### Histogram Example
+```python
+data = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+
+plt.hist(data, bins=5, color="green", edgecolor="black", label="Histogram")
+plt.title("Histogram Example")
+plt.xlabel("Bins")
+plt.ylabel("Frequency")
+plt.grid(axis="y")  # Add grid lines for the y-axis
+plt.legend()
+plt.show()
+```
+
+
+### Plotting Images with `imshow` and Different Colormaps
+
+The `imshow` function in Matplotlib is used to display images or 2D arrays as a grid of colored pixels. You can customize the appearance of the plot using different colormaps and add a colorbar to provide context for the color values.
+
+#### Example 1: Basic `imshow` with Default Colormap
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create a 2D array
+data = np.random.rand(10, 10)
+
+# Plot the array using imshow
+plt.imshow(data)
+plt.title("Default Colormap")
+plt.colorbar(label="Color Intensity")
+plt.show()
+```
+
+---
+
+#### Example 2: Using the `viridis` Colormap
+```python
+# Plot the array with the 'viridis' colormap
+plt.imshow(data, cmap="viridis")
+plt.title("Viridis Colormap")
+plt.colorbar(label="Color Intensity")
+plt.show()
+```
+
+---
+
+#### Example 3: Using the `plasma` Colormap
+```python
+# Plot the array with the 'plasma' colormap
+plt.imshow(data, cmap="plasma")
+plt.title("Plasma Colormap")
+plt.colorbar(label="Color Intensity")
+plt.show()
+```
+
+---
+
+#### Example 4: Using the `coolwarm` Colormap
+```python
+# Plot the array with the 'coolwarm' colormap
+plt.imshow(data, cmap="coolwarm")
+plt.title("Coolwarm Colormap")
+plt.colorbar(label="Color Intensity")
+plt.show()
+```
+
+---
+
+#### Example 5: Using the `gray` Colormap
+```python
+# Plot the array with the 'gray' colormap
+plt.imshow(data, cmap="gray")
+plt.title("Gray Colormap")
+plt.colorbar(label="Color Intensity")
+plt.show()
+```
+
+---
+
+#### Example 6: Customizing the Colorbar
+```python
+# Plot the array with a customized colorbar
+plt.imshow(data, cmap="inferno")
+plt.title("Inferno Colormap with Custom Colorbar")
+cbar = plt.colorbar()
+cbar.set_label("Custom Label", fontsize=12)
+cbar.ax.tick_params(labelsize=10)
+plt.show()
+```
+
+---
+
+#### Example 7: Displaying an Image with `imshow`
+```python
+# Load and display an image using imshow
+image = np.random.rand(100, 100)  # Simulating an image
+plt.imshow(image, cmap="jet")
+plt.title("Image with Jet Colormap")
+plt.colorbar(label="Pixel Intensity")
+plt.show()
+```
+
+These examples demonstrate how to use `imshow` with various colormaps and customize the colorbar for better visualization.
+
+## What is SciPy?
+
+SciPy is an open-source Python library used for scientific and technical computing. It builds on NumPy and provides additional functionality for optimization, integration, interpolation, eigenvalue problems, algebraic equations, and other advanced mathematical computations. SciPy is widely used in fields such as data science, machine learning, and engineering.
+
+### Key Features of SciPy:
+1. **Optimization**: Functions for finding minima, maxima, and solving optimization problems.
+2. **Integration**: Tools for numerical integration and solving differential equations.
+3. **Linear Algebra**: Advanced linear algebra operations, including sparse matrix support.
+4. **Statistics**: A wide range of statistical functions, including probability distributions, hypothesis testing, and descriptive statistics.
+5. **Signal Processing**: Tools for filtering, Fourier transforms, and signal analysis.
+6. **Spatial Data**: Functions for spatial data structures and computational geometry.
+7. **Rotations**: Tools for working with 3D rotations and quaternions.
+
+For more information, visit the [official SciPy documentation](https://scipy.org/).
+
+---
+
+## SciPy for Statistics
+
+SciPy provides a comprehensive set of statistical tools in the `scipy.stats` module. These tools include probability distributions, statistical tests, and descriptive statistics.
+
+### Common Statistical Functions in SciPy
+
+1. **Probability Distributions**:
+    SciPy supports a wide range of continuous and discrete probability distributions.
+    ```python
+    from scipy.stats import norm
+
+    # Normal distribution
+    mean, std_dev = 0, 1
+    x = 1.0
+    pdf = norm.pdf(x, loc=mean, scale=std_dev)  # Probability density function
+    cdf = norm.cdf(x, loc=mean, scale=std_dev)  # Cumulative distribution function
+    print(f"PDF: {pdf}, CDF: {cdf}")
+    ```
+
+2. **Descriptive Statistics**:
+    Compute basic statistics like mean, variance, and standard deviation.
+    ```python
+    from scipy.stats import describe
+
+    data = [1, 2, 3, 4, 5]
+    stats = describe(data)
+    print(stats)
+    # Output includes mean, variance, min, max, etc.
+    ```
+
+3. **Hypothesis Testing**:
+    Perform statistical tests like the t-test, chi-square test, and more.
+    ```python
+    from scipy.stats import ttest_1samp
+
+    data = [2.3, 2.5, 2.8, 3.0, 3.2]
+    t_stat, p_value = ttest_1samp(data, popmean=3.0)
+    print(f"T-statistic: {t_stat}, P-value: {p_value}")
+    ```
+
+4. **Correlation and Regression**:
+    Compute correlations and perform linear regression.
+    ```python
+    from scipy.stats import pearsonr
+
+    x = [1, 2, 3, 4, 5]
+    y = [2, 4, 6, 8, 10]
+    corr, _ = pearsonr(x, y)
+    print(f"Pearson Correlation: {corr}")
+    ```
+
+---
+
+## SciPy for Rotations
+
+The `scipy.spatial.transform` module provides tools for working with 3D rotations, including rotation matrices, Euler angles, and quaternions. These tools are essential for applications in computer graphics, robotics, and aerospace engineering.
+
+### Common Rotation Operations in SciPy
+
+1. **Creating Rotations**:
+    You can create rotations using rotation matrices, Euler angles, or quaternions.
+    ```python
+    from scipy.spatial.transform import Rotation as R
+
+    # Create a rotation from Euler angles
+    euler_angles = [90, 0, 0]  # Angles in degrees
+    rotation = R.from_euler('xyz', euler_angles, degrees=True)
+    print(rotation.as_matrix())  # Rotation matrix
+    ```
+
+2. **Applying Rotations**:
+    Apply a rotation to a vector or set of vectors.
+    ```python
+    vector = [1, 0, 0]
+    rotated_vector = rotation.apply(vector)
+    print(rotated_vector)
+    ```
+
+3. **Converting Between Representations**:
+    Convert between rotation representations (e.g., Euler angles, quaternions, rotation matrices).
+    ```python
+    # Convert to quaternion
+    quaternion = rotation.as_quat()
+    print(quaternion)
+
+    # Convert back to Euler angles
+    euler_angles = rotation.as_euler('xyz', degrees=True)
+    print(euler_angles)
+    ```
+
+4. **Combining Rotations**:
+    Combine multiple rotations using composition.
+    ```python
+    rotation1 = R.from_euler('x', 90, degrees=True)
+    rotation2 = R.from_euler('y', 90, degrees=True)
+    combined_rotation = rotation1 * rotation2
+    print(combined_rotation.as_matrix())
+    ```
+
+5. **Interpolating Rotations**:
+    Interpolate between two rotations using spherical linear interpolation (slerp).
+    ```python
+    from scipy.spatial.transform import Slerp
+
+    key_times = [0, 1]
+    key_rotations = R.from_euler('z', [0, 90], degrees=True)
+    slerp = Slerp(key_times, key_rotations)
+
+    interpolated_rotation = slerp(0.5)  # Interpolate at t=0.5
+    print(interpolated_rotation.as_euler('xyz', degrees=True))
+    ```
+
+---
+
+SciPy's statistical and rotation tools make it a versatile library for scientific computing, enabling efficient data analysis and 3D transformations.
+
+## Plotting Different Distributions in 1D
+
+Below are examples of how to plot different 1D distributions, including the Normal, Student's t, and Cauchy distributions, using Matplotlib and SciPy.
+
+### 1. Normal Distribution
+The Normal distribution, also known as the Gaussian distribution, is a bell-shaped curve defined by its mean (`mu`) and standard deviation (`sigma`).
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+# Parameters for the Normal distribution
+mu = 0  # Mean
+sigma = 1  # Standard deviation
+
+# Generate x values
+x = np.linspace(-4, 4, 1000)
+
+# Compute the PDF
+pdf = norm.pdf(x, loc=mu, scale=sigma)
+
+# Plot the Normal distribution
+plt.plot(x, pdf, label="Normal Distribution", color="blue")
+plt.title("Normal Distribution (μ=0, σ=1)")
+plt.xlabel("x")
+plt.ylabel("Probability Density")
+plt.grid(True)
+plt.legend()
+plt.show()
+```
+
+---
+
+### 2. Student's t-Distribution
+The Student's t-distribution is a family of distributions that arise when estimating the mean of a normally distributed population with a small sample size. It is defined by its degrees of freedom (`df`).
+
+```python
+from scipy.stats import t
+
+# Parameters for the t-distribution
+df = 5  # Degrees of freedom
+
+# Compute the PDF
+pdf_t = t.pdf(x, df)
+
+# Plot the t-distribution
+plt.plot(x, pdf_t, label=f"t-Distribution (df={df})", color="green")
+plt.title("Student's t-Distribution (df=5)")
+plt.xlabel("x")
+plt.ylabel("Probability Density")
+plt.grid(True)
+plt.legend()
+plt.show()
+```
+
+---
+
+### 3. Cauchy Distribution
+The Cauchy distribution is a continuous probability distribution with heavy tails. It is defined by its location parameter (`x0`) and scale parameter (`gamma`).
+
+```python
+from scipy.stats import cauchy
+
+# Parameters for the Cauchy distribution
+x0 = 0  # Location parameter
+gamma = 1  # Scale parameter
+
+# Compute the PDF
+pdf_cauchy = cauchy.pdf(x, loc=x0, scale=gamma)
+
+# Plot the Cauchy distribution
+plt.plot(x, pdf_cauchy, label="Cauchy Distribution", color="red")
+plt.title("Cauchy Distribution (x₀=0, γ=1)")
+plt.xlabel("x")
+plt.ylabel("Probability Density")
+plt.grid(True)
+plt.legend()
+plt.show()
+```
+
+---
+
+### Combined Plot
+To compare the distributions, you can plot them together on the same graph.
+
+```python
+# Plot all distributions together
+plt.plot(x, pdf, label="Normal (μ=0, σ=1)", color="blue")
+plt.plot(x, pdf_t, label="t-Distribution (df=5)", color="green")
+plt.plot(x, pdf_cauchy, label="Cauchy (x₀=0, γ=1)", color="red")
+plt.title("Comparison of Distributions")
+plt.xlabel("x")
+plt.ylabel("Probability Density")
+plt.grid(True)
+plt.legend()
+plt.show()
+```
+
+
+## Plotting a 2D Normal Distribution with Contours and Colorbar
+
+Below is an example of how to plot a 2D normal distribution using random points, along with a contour plot and a colorbar.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import multivariate_normal
+
+# Parameters for the 2D normal distribution
+mean = [0, 0]  # Mean vector
+cov = [[1, 0.5], [0.5, 1]]  # Covariance matrix
+
+# Generate a grid of points
+x = np.linspace(-3, 3, 100)
+y = np.linspace(-3, 3, 100)
+X, Y = np.meshgrid(x, y)
+pos = np.dstack((X, Y))
+
+# Compute the PDF of the 2D normal distribution
+rv = multivariate_normal(mean, cov)
+Z = rv.pdf(pos)
+
+# Plot the contour plot
+plt.figure(figsize=(8, 6))
+contour = plt.contourf(X, Y, Z, levels=50, cmap="viridis")
+plt.colorbar(contour, label="Probability Density")
+
+# Add labels and title
+plt.title("2D Normal Distribution with Contours", fontsize=14)
+plt.xlabel("X-axis", fontsize=12)
+plt.ylabel("Y-axis", fontsize=12)
+
+# Show the plot
+plt.show()
+```
+
+
+### Example: Normalized vs. Unnormalized Data
+
+Below is an example demonstrating the difference between normalized and unnormalized data using a simple dataset.
+
+#### Step 1: Create a Dataset
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Unnormalized data
+data = np.array([[100, 200, 300],
+                 [400, 500, 600],
+                 [700, 800, 900]])
+
+# Normalized data (min-max normalization)
+data_min = data.min(axis=0)
+data_max = data.max(axis=0)
+normalized_data = (data - data_min) / (data_max - data_min)
+
+print("Unnormalized Data:\n", data)
+print("Normalized Data:\n", normalized_data)
+```
+
+#### Step 2: Plot the Data
+```python
+# Plot unnormalized data
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.imshow(data, cmap="Blues", aspect="auto")
+plt.title("Unnormalized Data")
+plt.colorbar(label="Value Intensity")
+plt.xlabel("Features")
+plt.ylabel("Samples")
+
+# Plot normalized data
+plt.subplot(1, 2, 2)
+plt.imshow(normalized_data, cmap="Blues", aspect="auto")
+plt.title("Normalized Data")
+plt.colorbar(label="Value Intensity")
+plt.xlabel("Features")
+plt.ylabel("Samples")
+
+plt.tight_layout()
+plt.show()
+```
+
+### Explanation
+- **Unnormalized Data**: The raw data values are directly visualized, which may have large differences in scale.
+- **Normalized Data**: The data is scaled to a range of `[0, 1]` using min-max normalization, making it easier to compare features with different scales.
+- Normalization is particularly useful in machine learning and visualization to ensure that features contribute equally to the analysis.
+
+
+### Standardization of Data
+
+Standardization is a data preprocessing technique used to scale features so that they have a mean of 0 and a standard deviation of 1. This is particularly useful in machine learning algorithms that are sensitive to the scale of input features, such as Support Vector Machines (SVM) and Principal Component Analysis (PCA).
+
+The formula for standardization is:
+\[
+z = \frac{x - \mu}{\sigma}
+\]
+Where:
+- \(x\) is the original data point.
+- \(\mu\) is the mean of the data.
+- \(\sigma\) is the standard deviation of the data.
+
+### Example: Standardizing a Dataset
+
+#### Step 1: Create a Dataset
+```python
+import numpy as np
+
+# Original dataset
+data = np.array([[100, 200, 300],
+                 [400, 500, 600],
+                 [700, 800, 900]])
+
+print("Original Data:\n", data)
+```
+
+#### Step 2: Perform Standardization
+```python
+# Calculate mean and standard deviation
+mean = data.mean(axis=0)
+std_dev = data.std(axis=0)
+
+# Standardize the data
+standardized_data = (data - mean) / std_dev
+
+print("\nMean of each feature:\n", mean)
+print("Standard deviation of each feature:\n", std_dev)
+print("\nStandardized Data:\n", standardized_data)
+```
+
+#### Step 3: Verify the Standardization
+```python
+# Verify that the mean is approximately 0 and the standard deviation is 1
+print("\nMean of standardized data (approx. 0):\n", standardized_data.mean(axis=0))
+print("Standard deviation of standardized data (approx. 1):\n", standardized_data.std(axis=0))
+```
+
+#### Step 4: Visualize the Data
+```python
+import matplotlib.pyplot as plt
+
+# Plot original data
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.imshow(data, cmap="Blues", aspect="auto")
+plt.title("Original Data")
+plt.colorbar(label="Value Intensity")
+plt.xlabel("Features")
+plt.ylabel("Samples")
+
+# Plot standardized data
+plt.subplot(1, 2, 2)
+plt.imshow(standardized_data, cmap="Blues", aspect="auto")
+plt.title("Standardized Data")
+plt.colorbar(label="Value Intensity")
+plt.xlabel("Features")
+plt.ylabel("Samples")
+
+plt.tight_layout()
+plt.show()
+```
+
+### Explanation
+- **Original Data**: The raw data values may have different scales, which can affect the performance of certain algorithms.
